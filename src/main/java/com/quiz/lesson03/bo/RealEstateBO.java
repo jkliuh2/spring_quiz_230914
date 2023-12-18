@@ -1,6 +1,7 @@
 package com.quiz.lesson03.bo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,13 @@ public class RealEstateBO {
 	
 	// 3.
 	// input: area, price / output: List<>([] or 채워져있거나)
-	public List<RealEstate> getRealEstateAreaPrice(int area, int price) {
-		return realEstateMapper.selectRealEstateAreaPrice(area, price);
+	public List<RealEstate> getRealEstateByAreaPrice(
+//			int area, int price
+			Map<String, Object> areaPrice
+			) {
+		return realEstateMapper.selectRealEstateByAreaPrice(
+//				area, price
+				areaPrice
+				);
 	}
 }

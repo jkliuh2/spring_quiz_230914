@@ -41,7 +41,7 @@
  	</select>
  	
  	<!-- 3강 1-3 문제 -->
- 	<select id="selectRealEstateAreaPrice" parameterType="int" resultType="int">
+ 	<select id="selectRealEstateByAreaPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
  	SELECT
 		`id`
 	    ,`realtorId`
@@ -55,9 +55,12 @@
 	FROM
 		`real_estate`
 	WHERE
-		<![CDATA[ 
-		`area` > #{area}
-		and `price < #{price}
-		]]>
+		`area` <![CDATA[>]]> #{area}
+	AND 
+		`price` <![CDATA[<]]> #{price}
+	AND
+		`type` = '매매'
+	ORDER BY
+		`id` DESC
  	</select>
  </mapper>
