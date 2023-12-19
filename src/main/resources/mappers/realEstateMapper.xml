@@ -55,12 +55,66 @@
 	FROM
 		`real_estate`
 	WHERE
-		`area` <![CDATA[>]]> #{area}
-	AND 
-		`price` <![CDATA[<]]> #{price}
-	AND
+		<![CDATA[
+		`area` >= #{area}
+		AND 
+		`price` <= #{price}
+		]]>
+		AND
 		`type` = '매매'
 	ORDER BY
 		`id` DESC
  	</select>
+ 	
+ 	<!-- 3강 2-1문제 -->
+ 	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.domain.RealEstate">
+ 	INSERT INTO `real_estate`
+ 	(
+ 		`realtorId`
+	    ,`address`
+	    ,`area`
+	    ,`type`
+	    ,`price`
+	    ,`rentPrice` <!-- insert문은 당장 넣지 않는다고 해도 최대한 공용으로 사용할 수 있도록 만든다 -->
+	    ,`createdAt`
+	    ,`updatedAt`
+ 	)
+ 	VALUES
+ 	(
+ 		#{realtorId}
+ 		, #{address}
+ 		, #{area}
+ 		, #{type}
+ 		, #{price}
+ 		, #{rentPrice} <!-- 2-1. 입력 안했으니 NULL로 들어감 -->
+ 		, NOW()
+ 		, NOW()
+ 	)
+ 	</insert>
+ 	
+ 	<!-- 3강 2-2문제 -->
+  	<insert id="insertRealEstateAsField" parameterType="map">
+ 	INSERT INTO `real_estate`
+ 	(
+ 		`realtorId`
+	    ,`address`
+	    ,`area`
+	    ,`type`
+	    ,`price`
+	    ,`rentPrice` 
+	    ,`createdAt`
+	    ,`updatedAt`
+ 	)
+ 	VALUES
+ 	(
+ 		#{realtorId}
+ 		, #{address}
+ 		, #{area}
+ 		, #{type}
+ 		, #{price}
+ 		, #{rentPrice} 
+ 		, NOW()
+ 		, NOW()
+ 	)
+ 	</insert>
  </mapper>
