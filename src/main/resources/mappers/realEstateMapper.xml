@@ -124,8 +124,17 @@
  	SET
  		`type` = #{type}
  		, `price` = #{price}
- 		, `updatedAt` = NOW()
+ 		, `updatedAt` = NOW() <!-- 까먹지 말자 -->
 	WHERE
 		`id` = #{id} 		
  	</update>
+ 	
+ 	<!-- 3강 4번 문제 -->
+ 	<delete id="deleteRealEstateById" parameterType="int">
+ 	DELETE
+ 	FROM
+ 		`real_estate`
+ 	WHERE
+ 		`id` = #{id}
+ 	</delete>
  </mapper>
