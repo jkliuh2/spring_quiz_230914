@@ -7,9 +7,10 @@ public class Seller {
 	private int	id;
 	private String nickname;
 	private String profileImageUrl;
-	private String temperature;
+	private double temperature; // 필수 + 디폴트 존재 -> Null X
 	private Date createdAt;
 	private Date updatedAt;
+	
 	public int getId() {
 		return id;
 	}
@@ -28,10 +29,10 @@ public class Seller {
 	public void setProfileImageUrl(String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
 	}
-	public String getTemperature() {
+	public double getTemperature() {
 		return temperature;
 	}
-	public void setTemperature(String temperature) {
+	public void setTemperature(double temperature) {
 		this.temperature = temperature;
 	}
 	public Date getCreatedAt() {

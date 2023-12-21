@@ -16,11 +16,16 @@ public class SellerBO {
 	// input: 파라미터들 / output: X
 	public void addSeller(String nickname, 
 			String profileImageUrl, double temperature) {
-		sellerMapper.insertSellerAsField(nickname, profileImageUrl, temperature);
+		sellerMapper.insertSeller(nickname, profileImageUrl, temperature);
 	}
 	
 	// 2번 최근 seller select
 	public Seller getLatestSeller() {
 		return sellerMapper.selectLatestSeller();
+	}
+	
+	// 3번 id로 select
+	public Seller getSellerById(Integer id) {
+		return sellerMapper.selectSellerById(id);
 	}
 }
