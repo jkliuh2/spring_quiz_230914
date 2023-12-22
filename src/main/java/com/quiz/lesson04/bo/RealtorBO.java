@@ -18,7 +18,7 @@ public class RealtorBO {
 	}
 	
 	// select
-	public Realtor getRealtorById(Realtor realtor) {
-		return realtorMapper.selectRealtorById(realtor);
+	public Realtor getRealtorById(int id) {
+		return realtorMapper.selectRealtorById(id);
 	}
 }

@@ -11,5 +11,5 @@ public interface RealtorMapper {
 	public void insertRealtor(Realtor realtor);
 	
 	// select
-	public Realtor selectRealtorById(Realtor realtor);
+	public Realtor selectRealtorById(int id);
 }

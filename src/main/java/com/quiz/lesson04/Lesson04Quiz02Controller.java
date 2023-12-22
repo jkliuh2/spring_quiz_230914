@@ -32,12 +32,13 @@ public class Lesson04Quiz02Controller {
 			@ModelAttribute Realtor realtor,
 			Model model) {
 		
-		// insert
+		// insert => 추가된 pk 받아옴 -> realtor에 세팅
 		realtorBO.addRealtor(realtor);
 		
 		
-		// 입력한 정보 select
-		realtor = realtorBO.getRealtorById(realtor);
+		// 방금 입력한 정보 select => 세팅된 id로 조회
+		int id = realtor.getId();
+		realtor = realtorBO.getRealtorById(id);
 		
 		
 		// model 입력
