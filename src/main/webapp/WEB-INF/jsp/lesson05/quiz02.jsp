@@ -56,7 +56,7 @@
 								<c:when test="${member.grade eq 'VIP'}">
 									<span class="text-danger">${member.grade}</span>
 								</c:when>
-								<c:when test="${member.grade eq 'GOLD'}">
+								<c:when test="${member.grade eq \"GOLD\"}">
 									<span class="text-warning">${member.grade}</span>
 								</c:when>
 								<c:otherwise>
