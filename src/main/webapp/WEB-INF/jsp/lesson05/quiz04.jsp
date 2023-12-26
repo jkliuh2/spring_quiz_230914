@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +29,34 @@
 			<tbody>
 				<c:forEach items="${members}" var="member" varStatus="status">
 				<tr>
-					<td><span class="font-weight-bold">${statue.count}</span></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><span class="font-weight-bold">${status.count}</span></td>
+					<td>${member.name}</td>
+					<td> <%-- 전화번호 --%>
+						<c:choose>
+							<c:when test="${fn:startsWith(member.phoneNumber, '010')}">
+								${member.phoneNumber}
+							</c:when>
+							<c:otherwise>
+								유효하지 않은 전화번호
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td> <%-- 국적 --%>
+						${fn:replace(member.nationality, '삼국시대', '삼국 -')}
+					</td>
+					<td> <%-- 이메일 --%>
+						<span class="font-weight-bold">${fn:split(member.email, '@')[0]}</span>@${fn:split(member.email, '@')[1]}
+					</td>
+					<td> <%-- 자기소개 --%>
+						<c:choose>
+							<c:when test="${fn:length(member.introduce) > 15}">
+								${fn:substring(member.introduce, 0, 16)}...
+							</c:when>
+							<c:otherwise>
+								${member.introduce}
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 				</c:forEach> <%-- 반복문 끝 --%>
 			</tbody>
