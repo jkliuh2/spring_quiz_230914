@@ -1,12 +1,25 @@
 @charset "UTF-8";
 
-#wrap {width:1500px;}
+#wrap {width:1200px;}
+
+aside {background-color:cornflowerblue;}
 
 .contents {min-height:500px;}
-.contents #logo {height:50px;}
-.contents nav {height:300px;}
 
 footer {height:100px;}
 
-.nav-text {color:#EEE}
-.nav-text:hover {color:#BBB}
+.input-label{
+	width:130px;
+    text-align: right;
+    margin-right:10px;	
+}
+
+.nav-text {
+	color:white;
+    font-size:17px;
+    font-weight: bold;
+	}
+.nav-text:hover {
+	color:white;
+    border: 2px solid white;
+    }

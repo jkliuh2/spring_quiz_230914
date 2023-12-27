@@ -19,7 +19,7 @@
 	<div id="wrap">
 		<section class="contents d-flex">
 			<%-- 메뉴 영역 --%>
-			<aside class="bg-info col-2">
+			<aside class="col-2">
 				<%-- 로고 영역 --%>
 				<div id="logo">
 					<img src="/img/weather.svg" width="100" alt="기상청 로고">

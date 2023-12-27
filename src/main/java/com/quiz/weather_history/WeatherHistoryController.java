@@ -49,13 +49,12 @@ public class WeatherHistoryController {
 	@PostMapping("/add-weather")
 	public String addWeather(@ModelAttribute Weather weather) {
 		
-		// RequestParam들을 Insert
+		// Insert
 		weatherBO.addWeather(weather);
 		
-		// weather-list-view 페이지로 리다이렉트
+		// 전체 날씨 목록 페이지로 리다이렉트
 		return "redirect:/weather_history/weather-list-view";
 	}
 	
 	
-	// url: http:localhost:8080/weather_history/weather-list-view
 }
