@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#wrap {width:1500px;}
+
+.contents {min-height:500px;}
+.contents #logo {height:50px;}
+.contents nav {height:300px;}
+
+footer {height:100px;}
+
+.nav-text {color:#EEE}
+.nav-text:hover {color:#BBB}

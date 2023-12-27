@@ -15,6 +15,8 @@
 <body>
 	<div class="container">
 		<h1>회원 정보 리스트</h1>
+		<img src="/img/sunny.jpg" alt="시험용 이미지">
+		
 		<table class="table text-center">
 			<thead>
 				<tr>
@@ -50,7 +52,7 @@
 					<td> <%-- 자기소개 --%>
 						<c:choose>
 							<c:when test="${fn:length(member.introduce) > 15}">
-								${fn:substring(member.introduce, 0, 16)}...
+								${fn:substring(member.introduce, 0, 15)}...
 							</c:when>
 							<c:otherwise>
 								${member.introduce}
