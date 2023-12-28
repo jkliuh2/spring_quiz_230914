@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quiz.lesson02.bo.StoreBO;
 import com.quiz.lesson02.domain.Store;
+import com.quiz.lesson05.bo.ReviewBO;
+import com.quiz.lesson05.domain.Review;
 
 @RequestMapping("/lesson05/quiz06")
 @Controller
@@ -18,6 +20,8 @@ public class Lesson05Quiz06Controller {
 	
 	@Autowired
 	private StoreBO storeBO;
+	@Autowired
+	private ReviewBO reviewBO;
 
 	// 6-1 store 테이블로 view 페이지 만들기
 	// lesson02에서 만든 클래스 활용
@@ -41,7 +45,17 @@ public class Lesson05Quiz06Controller {
 	@GetMapping("/reviews")
 	public String reviews(
 			@RequestParam("storeId") int storeId,
-			@RequestParam("storeName") String storeName) {
+			@RequestParam("storeName") String storeName,
+			Model model) {
+		
+		// review 테이블에서 DB Select
+		List<Review> reviewList = reviewBO.getReviewByStoreId(storeId);
+		
+		// model에 정보 넣기
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("storeName", storeName);
+		
+		// jsp 리턴
 		return "lesson05/quiz06/reviews";
 	}
 }

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 header {height:100px;}
-.contents {min-height:500px;}
+.contents {min-height:300px;}
 footer {height:80px}
 
 a {text-decoration:none}
