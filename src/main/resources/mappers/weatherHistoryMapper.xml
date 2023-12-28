@@ -4,7 +4,7 @@
  
  <mapper namespace="com.quiz.weather_history.mapper.WeatherMapper">
  	<!-- 테이블 전체 select -->
-	<select id="selectWeather" resultType="com.quiz.weather_history.domain.Weather">
+	<select id="selectWeatherHistoryList" resultType="com.quiz.weather_history.domain.WeatherHistory">
 		SELECT
 			`id`
 			,`date`
@@ -20,7 +20,7 @@
 	</select> 
 	
 	<!-- Insert -->
-	<insert id="insertWeather" parameterType="com.quiz.weather_history.domain.Weather">
+	<insert id="insertWeatherHistory" parameterType="com.quiz.weather_history.domain.WeatherHistory">
 		INSERT INTO `weather_history`
 		(
 			`date`

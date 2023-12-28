@@ -27,8 +27,8 @@
 				<%-- 메뉴 --%>
 				<nav>
 					<ul class="nav flex-column">
-						<li class="nav-item"><a href="/weather_history/weather-list-view" class="nav-text nav-link">날씨</a></li>
-						<li class="nav-item"><a href="/weather_history/add-weather-view" class="nav-text nav-link">날씨입력</a></li>
+						<li class="nav-item"><a href="/weather-history/weather-list-view" class="nav-text nav-link">날씨</a></li>
+						<li class="nav-item"><a href="/weather-history/add-weather-view" class="nav-text nav-link">날씨입력</a></li>
 						<li class="nav-item"><a href="#" class="nav-text nav-link">테마날씨</a></li>
 						<li class="nav-item"><a href="#" class="nav-text nav-link">관측 기후</a></li>
 					</ul>
@@ -56,16 +56,16 @@
 							</td>
 							<td> <%-- 날씨(그림) --%>
 								<c:if test="${weather.weather eq '맑음'}">
-									<img src="/img/sunny.jpg" alt="날씨 맑음">
+									<img src="/img/sunny.jpg" alt="맑음">
 								</c:if>
 								<c:if test="${weather.weather eq '흐림'}">
-									<img src="/img/cloudy.jpg" alt="날씨 흐림">
+									<img src="/img/cloudy.jpg" alt="흐림">
 								</c:if>
 								<c:if test="${weather.weather eq '구름조금'}">
-									<img src="/img/partlyCloudy.jpg" alt="날씨 구름조금">
+									<img src="/img/partlyCloudy.jpg" alt="구름조금">
 								</c:if>
 								<c:if test="${weather.weather eq '비'}">
-									<img src="/img/rainy.jpg" alt="날씨 비">
+									<img src="/img/rainy.jpg" alt="비">
 								</c:if>
 							</td>
 							<td>${weather.temperatures}℃</td>

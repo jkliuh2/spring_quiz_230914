@@ -5,7 +5,14 @@
  <mapper namespace="com.quiz.lesson02.mapper.StoreMapper">
  	<select id="selectStoreList" resultType="com.quiz.lesson02.domain.Store">
  		SELECT
- 			*
+ 			`id`
+			,`name`
+			,`phoneNumber`
+			,`address`
+			,`businessNumber`
+			,`introduce`
+			,`createdAt`
+			,`updatedAt`
  		FROM
  			`store`
  			<!-- 실제 업무에서는 *은 절대 사용하지 않는다.

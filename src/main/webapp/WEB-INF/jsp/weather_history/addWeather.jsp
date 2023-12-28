@@ -29,8 +29,8 @@
 				<%-- 메뉴 --%>
 				<nav>
 					<ul class="nav flex-column">
-						<li class="nav-item"><a href="/weather_history/weather-list-view" class="nav-text nav-link">날씨</a></li>
-						<li class="nav-item"><a href="/weather_history/add-weather-view" class="nav-text nav-link">날씨입력</a></li>
+						<li class="nav-item"><a href="/weather-history/weather-list-view" class="nav-text nav-link">날씨</a></li>
+						<li class="nav-item"><a href="/weather-history/add-weather-view" class="nav-text nav-link">날씨입력</a></li>
 						<li class="nav-item"><a href="#" class="nav-text nav-link">테마날씨</a></li>
 						<li class="nav-item"><a href="#" class="nav-text nav-link">관측 기후</a></li>
 					</ul>
@@ -39,7 +39,7 @@
 			<%-- 컨텐츠 영역 --%>
 			<section id="weather-history" class="content1 col-10">
 				<h3>날씨 입력</h3>
-				<form method="post" action="/weather_history/add-weather">
+				<form method="post" action="/weather-history/add-weather">
 					<div class="d-flex justify-content-between mt-5">
 						<div class="d-flex align-items-center">
 							<div class="input-label">날짜</div>
@@ -118,7 +118,15 @@
 	<%-- script --%>
 	<script>
 		$(document).ready(function() {
-			// 유효성 체크
+			
+			// datepicker
+			$("#date").datepicker({
+				dateFormat:"yy-mm-dd"
+			});
+			// format을 바꾸면 String 취급으로 바뀌어서 Date 타입으로 Request를 못받는다. (400 Bad Request)
+			
+			
+			// +) 유효성 체크
 			$("#sub-btn").on("click", function() {
 				// 날짜 빈칸 체크
 				let date = $("input[name=date]").val();
@@ -147,12 +155,9 @@
 					alert("풍속을 입력하세요.(없으면 0을 입력하세요)")
 					return false;
 				}
-			});
-			
-			// datepicker
-			$("#date").datepicker();
-			// format을 바꾸면 String 취급으로 바뀌어서 Date 타입으로 RequestParam에서 못받는듯
-		});
+				
+			}); // 유효성체크 끝
+		}); // 레디 이벤트 끝
 	</script>
 </body>
 </html>

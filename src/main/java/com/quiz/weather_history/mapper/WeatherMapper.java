@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.quiz.weather_history.domain.Weather;
+import com.quiz.weather_history.domain.WeatherHistory;
 
 @Repository
 public interface WeatherMapper {
 	
 	// 전체 날씨 select
-	public List<Weather> selectWeather();
+	// input:X / output:List<>
+	public List<WeatherHistory> selectWeatherHistoryList();
 	
 	// 날씨 Insert
-	public int insertWeather(Weather weather);
+	public int insertWeatherHistory(WeatherHistory weatherHistory);
 }
