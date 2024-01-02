@@ -28,7 +28,7 @@
 				<tr>
 					<td class="font-weight-bold">${status.count}</td>
 					<td>${bookmark.name}</td>
-					<td class="font-weight-bold">${bookmark.url}</td>
+					<td class="font-weight-bold"><a href="${bookmark.url}" target="blank">${bookmark.url}</a></td>
 				</tr>
 				</c:forEach> <%-- 반복문 끝 --%>
 			</tbody>
