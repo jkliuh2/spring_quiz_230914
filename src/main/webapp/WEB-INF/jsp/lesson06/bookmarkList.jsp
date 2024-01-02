@@ -21,6 +21,7 @@
 					<th>No.</th>
 					<th>이름</th>
 					<th>주소</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,10 +30,52 @@
 					<td class="font-weight-bold">${status.count}</td>
 					<td>${bookmark.name}</td>
 					<td class="font-weight-bold"><a href="${bookmark.url}" target="blank">${bookmark.url}</a></td>
+					<td>
+						<button id="deleteBtn-${bookmark.id}" type="button" class="deleteBtn btn btn-danger">삭제</button>
+					</td>
 				</tr>
 				</c:forEach> <%-- 반복문 끝 --%>
 			</tbody>
 		</table>
 	</div>	
+	
+<script>
+	$(document).ready(function() {
+		
+		// 삭제 버튼 클릭 이벤트
+		$('.deleteBtn').on('click', function() {
+			//alert("삭제버튼");
+			
+			// 클릭된 삭제버튼의 값 가져오기
+			//let idstr = $(this).attr("id"); // deleteBtn-id
+			//alert(idstr);
+			//let id = idstr.split("-")[1];
+			let id = $(this).attr("id").split("-")[1]; // id값
+			//alert(id);
+			
+			// AJAX 통신 - 데이터 삭제 후 화면 새로고침
+			$.ajax({
+				// request
+				type:"POST"
+				, url:"/lesson06/delete-bookmark-by-id"
+				, data:{"id":id}
+			
+				// response
+				, success:function(data) {
+					// 성공시 "code":200
+					if (data.code == 200) {
+						//alert("성공");
+						location.href="/lesson06/bookmark-list-view"
+					}
+				}
+				, error(request, status, error) {
+					alert("데이터 삭제에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			}); // ajax 끝
+			
+		}); // 삭제 버튼 클릭 이벤트 끝
+	}); // 레디이벤트 끝
+</script>
+	
 </body>
 </html>

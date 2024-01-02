@@ -32,4 +32,22 @@
  		, NOW()
  	)
  	</insert>
+ 	
+ 	<!-- url 중복 확인 / count => 0:false, 그 외:true -->
+ 	<select id="isDuplicationByUrl" parameterType="string" 
+ 	resultType="boolean">
+ 	SELECT
+ 		count(*)
+ 	FROM
+ 		`bookmark`
+ 	WHERE `url` = #{url}
+ 	</select>
+ 	
+ 	<!-- id로 delete -->
+ 	<delete id="deleteBookmarkById" parameterType="int">
+ 	DELETE
+ 	FROM
+ 		`bookmark`
+ 	WHERE `id` = #{id}
+ 	</delete>
  </mapper>

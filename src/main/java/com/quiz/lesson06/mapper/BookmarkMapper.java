@@ -18,4 +18,10 @@ public interface BookmarkMapper {
 	public int insertBookmark(
 			@Param("name") String name, 
 			@Param("url") String url);
+	
+	// url 중복 확인
+	public boolean isDuplicationByUrl(String url);
+	
+	// id로 delete
+	public void deleteBookmarkById(int id);
 }

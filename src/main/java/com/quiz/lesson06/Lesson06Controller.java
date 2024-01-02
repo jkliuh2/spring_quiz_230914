@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.quiz.lesson06.bo.BookmarkBO;
 import com.quiz.lesson06.domain.Bookmark;
 
-@RequestMapping("/lesson06/quiz01")
+@RequestMapping("/lesson06")
 @Controller
 public class Lesson06Controller {
 	
@@ -25,7 +25,7 @@ public class Lesson06Controller {
 	
 
 	// 1-1. 즐겨찾기 추가하기 view
-	// url: http://localhost:8080/lesson06/quiz01/add-bookmark-view
+	// url: http://localhost:8080/lesson06/add-bookmark-view
 	@GetMapping("/add-bookmark-view")
 	public String addBookmarkView() {
 		return "lesson06/addBookmark";
@@ -57,7 +57,7 @@ public class Lesson06Controller {
 	
 	
 	// 1-2. 즐겨찾기 추가 후 목록 view
-	// url: /after-bookmark-view
+	// url: http://localhost:8080/lesson06/bookmark-list-view
 	@GetMapping("/bookmark-list-view")
 	public String bookmarkListView(Model model) {
 		
@@ -69,5 +69,44 @@ public class Lesson06Controller {
 		
 		// jsp로
 		return "lesson06/bookmarkList";
+	}
+	
+	
+	// 2-1. ajax통신 - url 중복확인
+	// url: /is-duplication-url
+	@ResponseBody
+	@GetMapping("/is-duplication-url")
+	public Map<String, Object> isDuplicationUrl(
+			@RequestParam("url") String url) {
+		
+		// DB select -> 중복여부(boolean) - true:중복
+		boolean is_duplication = bookmarkBO.isDuplicationByUrl(url);
+				
+		// 리턴 할 Map 만들기
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("is_duplication", is_duplication);
+		
+		// 리턴
+		return result;
+	}
+	
+	
+	// 2-2. ajax통신 - delete
+	// url: /delete-bookmark-by-id
+	@ResponseBody
+	@PostMapping("/delete-bookmark-by-id")
+	public Map<String, Object> deleteBookmarkById(
+			@RequestParam("id") int id) {
+		
+		// DB delete
+		bookmarkBO.deleteBookmarkById(id);
+		
+		// 리턴할 Map 만들기
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		
+		// call back
+		return result;
 	}
 }
