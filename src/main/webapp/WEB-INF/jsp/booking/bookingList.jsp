@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>예약 목록</title>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"

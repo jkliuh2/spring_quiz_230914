@@ -18,4 +18,13 @@
 	FROM
 		`booking`
  	</select>
+ 	
+ 	<!-- Delete -->
+ 	<delete id="deleteBookingById" parameterType="int">
+ 	DELETE
+ 	FROM
+ 		`booking`
+ 	WHERE
+ 		`id` = #{id}
+ 	</delete>
  </mapper>

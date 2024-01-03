@@ -18,4 +18,10 @@ public class BookingBO {
 	public List<Booking> getBookingList() {
 		return bookingMapper.selectBookingList();
 	}
+	
+	// delete
+	// input:id / output:int
+	public int deleteBookingById(int id) {
+		return bookingMapper.deleteBookingById(id);
+	}
 }
