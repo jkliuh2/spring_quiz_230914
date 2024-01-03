@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,17 +76,17 @@ public class Lesson06Controller {
 	// 2-1. ajax통신 - url 중복확인
 	// url: /is-duplication-url
 	@ResponseBody
-	@GetMapping("/is-duplication-url")
+	@PostMapping("/is-duplication-url")
 	public Map<String, Object> isDuplicationUrl(
 			@RequestParam("url") String url) {
 		
 		// DB select -> 중복여부(boolean) - true:중복
-		boolean is_duplication = bookmarkBO.isDuplicationByUrl(url);
+		boolean isDuplication = bookmarkBO.isDuplicationByUrl(url);
 				
 		// 리턴 할 Map 만들기
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
-		result.put("is_duplication", is_duplication);
+		result.put("is_duplication", isDuplication);
 		
 		// 리턴
 		return result;
@@ -95,16 +96,23 @@ public class Lesson06Controller {
 	// 2-2. ajax통신 - delete
 	// url: /delete-bookmark-by-id
 	@ResponseBody
-	@PostMapping("/delete-bookmark-by-id")
-	public Map<String, Object> deleteBookmarkById(
+	@DeleteMapping("/delete-bookmark")
+	public Map<String, Object> deleteBookmark(
 			@RequestParam("id") int id) {
 		
-		// DB delete
-		bookmarkBO.deleteBookmarkById(id);
+		// DB delete - 성공/실패 rowCount 확인
+		int rowCount = bookmarkBO.deleteBookmarkById(id);
 		
 		// 리턴할 Map 만들기
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
+		if (rowCount > 0) { // 삭제 성공시
+			result.put("code", 200);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500); // 삭제 실패시
+			result.put("error_message", "삭제에 실패했습니다.");
+		}
+		
 		
 		// call back
 		return result;

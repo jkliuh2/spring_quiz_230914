@@ -31,7 +31,7 @@
 					<td>${bookmark.name}</td>
 					<td class="font-weight-bold"><a href="${bookmark.url}" target="blank">${bookmark.url}</a></td>
 					<td>
-						<button id="deleteBtn-${bookmark.id}" type="button" class="deleteBtn btn btn-danger">삭제</button>
+						<button type="button" data-bookmark-id="${bookmark.id}" class="del-btn btn btn-danger">삭제</button>
 					</td>
 				</tr>
 				</c:forEach> <%-- 반복문 끝 --%>
@@ -43,33 +43,42 @@
 	$(document).ready(function() {
 		
 		// 삭제 버튼 클릭 이벤트
-		$('.deleteBtn').on('click', function() {
+		$('.del-btn').on('click', function() {
 			//alert("삭제버튼");
 			
 			// 클릭된 삭제버튼의 값 가져오기
-			//let idstr = $(this).attr("id"); // deleteBtn-id
-			//alert(idstr);
-			//let id = idstr.split("-")[1];
-			let id = $(this).attr("id").split("-")[1]; // id값
-			//alert(id);
+			// 1) value값 or id로 지정해서 그 해당 값 가져오기
+			// 태그: value="${id}"
+			/* let id = $(this).val();
+			let id = $(this).attr("value");
+			let id = e.target.value; */
+			// 위 세가지 모두 같은 경우
+			
+			// data를 이용해서 값 가져오기
+			// 태그영역: data-bookmark-id
+			// 스크립트 영역: .data('bookmark-id');
+			let id = $(this).data('bookmark-id');
 			
 			// AJAX 통신 - 데이터 삭제 후 화면 새로고침
 			$.ajax({
 				// request
-				type:"POST"
-				, url:"/lesson06/delete-bookmark-by-id"
+				type:"DELETE" // 삭제 전용 요청 방식. AJAX만 가능
+				, url:"/lesson06/delete-bookmark"
 				, data:{"id":id}
 			
 				// response
 				, success:function(data) {
-					// 성공시 "code":200
+					// 성공시 "code":200, "result":성공
+					// 실패시(rowCount=0) "code":500, "error_message":삭제에 실패~~
 					if (data.code == 200) {
-						//alert("성공");
-						location.href="/lesson06/bookmark-list-view"
+						// location.href="/lesson06/bookmark-list-view" // 완전한 새로고침.
+						location.reload(); // 간단한 새로고침
+					} else if (data.code == 500) {
+						alert(data.error_message); // 이게 나온다는 건, 로직상 오류났다는 것. 시스템상 문제는 없음
 					}
 				}
-				, error(request, status, error) {
-					alert("데이터 삭제에 실패했습니다. 관리자에게 문의해주세요.");
+				, error:function(error) { // 귀찮으면 error로 퉁치면 됨
+					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			}); // ajax 끝
 			

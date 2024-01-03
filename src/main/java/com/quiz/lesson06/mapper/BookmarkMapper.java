@@ -11,7 +11,7 @@ import com.quiz.lesson06.domain.Bookmark;
 public interface BookmarkMapper {
 
 	// 전체 테이블 select
-	public List<Bookmark> selectBookmark();
+	public List<Bookmark> selectBookmarkList();
 	
 	// insert
 	// input: name, url / output:int
@@ -19,9 +19,10 @@ public interface BookmarkMapper {
 			@Param("name") String name, 
 			@Param("url") String url);
 	
-	// url 중복 확인
-	public boolean isDuplicationByUrl(String url);
+	// url 중복 확인 -> url로 조회하기
+	// input:url / output: 그냥 행 자체를 넘겨줄 것.(찾는 것이 여러 행일 수도 있음) -> List
+	public List<Bookmark> selectBookmarkListByUrl(String url);
 	
 	// id로 delete
-	public void deleteBookmarkById(int id);
+	public int deleteBookmarkById(int id);
 }

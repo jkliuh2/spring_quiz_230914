@@ -4,7 +4,7 @@
  
  <mapper namespace="com.quiz.lesson06.mapper.BookmarkMapper">
  	<!--  전체 테이블 select -->
- 	<select id="selectBookmark" resultType="com.quiz.lesson06.domain.Bookmark">
+ 	<select id="selectBookmarkList" resultType="com.quiz.lesson06.domain.Bookmark">
  	SELECT
  		`id`
 		,`name`
@@ -33,14 +33,19 @@
  	)
  	</insert>
  	
- 	<!-- url 중복 확인 / count => 0:false, 그 외:true -->
- 	<select id="isDuplicationByUrl" parameterType="string" 
- 	resultType="boolean">
+ 	<!-- url로 select -->
+ 	<select id="selectBookmarkListByUrl" parameterType="string" 
+ 	resultType="com.quiz.lesson06.domain.Bookmark">
  	SELECT
- 		count(*)
- 	FROM
- 		`bookmark`
- 	WHERE `url` = #{url}
+ 		`id`
+		,`name`
+		,`url`
+		,`createdAt`
+		,`updatedAt`
+	FROM
+		`bookmark`
+	WHERE 
+		`url` = #{url}
  	</select>
  	
  	<!-- id로 delete -->
@@ -48,6 +53,7 @@
  	DELETE
  	FROM
  		`bookmark`
- 	WHERE `id` = #{id}
+ 	WHERE 
+ 		`id` = #{id}
  	</delete>
  </mapper>

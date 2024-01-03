@@ -18,13 +18,18 @@
 			<div class="m-2">제목</div>
 			<input type="text" id="name" class="form-control m-2">
 			<div class="m-2">주소</div>
-			<div class="d-flex">
+			<div class="form-inline">
 				<input type="text" id="url" class="form-control m-2 col-10">
 				<%-- 중복확인 버튼 --%>
 				<button type="button" id="urlCheckBtn" class="btn btn-info form-control col-1">중복확인</button>
 			</div>
-			<smail id="urlStatusArea">
-				<%-- 중복확인 버튼 경고문 --%>
+			<smail id="urlStatusArea" class="text-danger d-none">
+				<%-- 중복확인 버튼 경고문. 기본으로 숨겨놓는다. --%>
+				중복된 url입니다.
+			</smail>
+			<smail id="availableUrl" class="text-success d-none">
+				<%-- 저장 가능하면 뜨는 문구. --%>
+				저장 가능한 url입니다.
 			</smail>
 			
 			<%-- 사이트 추가 버튼 --%>
@@ -38,37 +43,39 @@
 		
 		// 중복확인 버튼 클릭 이벤트
 		$('#urlCheckBtn').on('click', function() {
-			// urlStatusArea 태그 비우기
-			$('#urlStatusArea').empty();
 			
-			let url = $('#url').val(); // url 값 변수화
+			let url = $('#url').val().trim(); // url 값 변수화. trim() 함수 잊지 말자.
 			
-			// 유효성 검사
 			// url 비어있을 때
 			if (url == "") {
-				$('#urlStatusArea').append('<span class="text-danger">url이 비어있습니다.</span>');
+				alert("url이 비어있습니다/");
+				return;
 			}
-			// url이 정상적이지 않을 경우
-			if (url.startsWith('http://') == false 
-					&& url.startsWith('https://') == false) {
-				$('#urlStatusArea').append('<span class="text-danger">유효한 url이 아닙니다.</span>');
-			}
-			// ajax 통신 - 중복확인
+			
+			// 여기까지 내려왔으면 일단 url은 채워져있다
+			
+			// AJAX 통신 - 중복확인
 			$.ajax({
 				// request
-				type:"GET"
+				type:"POST" // url같이 긴 데이터의 경우, POST로 보내자
 				, url:"/lesson06/is-duplication-url"
 				, data:{"url":url}
 				
 				// response
-				, success:function(data) {
+				, success:function(data) { // data: JSON -> dictionary
 					// 성공시: {"code":200, "is_duplication":true/false}
 					// true -> 중복
 					if (data.is_duplication) {
-						$('#urlStatusArea').append('<span class="text-danger">중복된 url 입니다.</span>');
+						// 중복이다.
+						$('#urlStatusArea').removeClass("d-none"); // 중복문구의 class 제거(d-none)
+						$('#availableUrl').addClass("d-none"); // 저장가능 문구 class 추가(d-none)
+					} else {
+						// 중복 아니다. => 사용 가능
+						$('#availableUrl').removeClass("d-none"); // 위와 정 반대.
+						$('#urlStatusArea').addClass("d-none"); 
 					}
 				}
-				, error:function(request, status, error) {
+				, error:function(request, status, error) { // 중복 확인에 실패했을 때.
 					alert("중복확인에 실패했습니다.");
 				}
 				

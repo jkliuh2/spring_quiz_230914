@@ -1,0 +1,14 @@
+#wrap {width: 1200px; max-width: 1200px;}
+header {height: 100px;}
+.contents {min-height: 250px;}
+nav {height: 40px; background-color:coral;}
+/* .contents {min-height: 800px;} */
+.contents > .banner {height: 500px;}
+.contents > .content1 {min-height: 250px;}
+footer {height: 80px;}
+
+.menu-font {color: white; font-weight: bold; font-size: small;}
+.aside-background {background-color:chocolate;}
+.input-info {background-color: coral;}
+
+.reserve-confirm {font-size:25px; color:#fff;}
