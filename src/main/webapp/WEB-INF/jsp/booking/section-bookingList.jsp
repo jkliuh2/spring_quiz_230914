@@ -31,11 +31,14 @@
 				<td>${booking.phoneNumber}</td>
 				<td> <%-- 예약상태. 대기중-info, 확정-success --%>
 					<c:choose>
-						<c:when test="${booking.state == '대기중'}">
+						<c:when test="${booking.state eq '대기중'}">
 							<span class="text-info">${booking.state}</span>
 						</c:when>
-						<c:when test="${booking.state == '확정'}">
+						<c:when test="${booking.state eq '확정'}">
 							<span class="text-success">${booking.state}</span>
+						</c:when>
+						<c:when test="${booking.state eq '취소'}">
+							<span class="text-danger">${booking.state}</span>
 						</c:when>
 					</c:choose>
 				</td>
@@ -70,7 +73,7 @@
 				, success:function(data) {
 					// 성공시-code:200
 					if (data.code == 200) {
-						//alert("성공");
+						alert(data.result_message);
 						location.reload();
 					} else if (data.code == 500) {
 						// 실패시-code:500

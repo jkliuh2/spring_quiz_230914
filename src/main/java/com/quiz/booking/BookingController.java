@@ -59,7 +59,7 @@ public class BookingController {
 		Map<String, Object> result = new HashMap<>();
 		if (rowCount > 0) {
 			result.put("code", 200);
-			result.put("result", "성공");
+			result.put("result_message", "예약이 성공적으로 취소되었습니다.");
 		} else {
 			result.put("code", 500);
 			result.put("error_message", "삭제에 실패했습니다");
@@ -86,19 +86,18 @@ public class BookingController {
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
 			@RequestParam("day") int day,
 			@RequestParam("headcount") int headcount,
-			@RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam("state") String state
+			@RequestParam("phoneNumber") String phoneNumber
 			) {
 		
 		// DB Insert / 성공:1, 실패:0
-		int rowCount = 1;
+		int rowCount = bookingBO.addBooking(name, date, day, headcount, phoneNumber);
 		
 		// data Map 만들기
 		Map<String, Object> result = new HashMap<>();
-		if (rowCount > 0) {
+		if (rowCount > 0) { // 성공시
 			result.put("code", 200);
 			result.put("result", "성공");
-		} else {
+		} else { // 실패시
 			result.put("code", 500);
 			result.put("error_message", "예약에 실패했습니다.");
 		}
@@ -108,10 +107,34 @@ public class BookingController {
 	}
 	
 	
-	// 3-3. 예약 조회 기능
-	// url : http://localhost:8080/booking/checkBooking
-	@GetMapping("/checkBooking")
-	public String checkBooking() {
+	// 3-3. 예약 조회 view 페이지
+	// url : http://localhost:8080/booking/check-booking-view
+	@GetMapping("/check-booking-view")
+	public String checkBookingView() {
 		return "booking/checkBooking";
+	}
+	
+	// 3-3. AJAX - 예약 확인하기 기능
+	@ResponseBody
+	@GetMapping("/check-booking")
+	public Map<String, Object> checkBooking(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		
+		// DB select -> 가장 가까운(date가 가장 이전) 하나만 BO에서 보낸다 
+		Booking booking = bookingBO.getNearestBookingByNamePhoneNumber(name, phoneNumber);
+		
+		// Map 만들기
+		Map<String, Object> result = new HashMap<>();
+		if (booking != null) {
+			result.put("code", 200);
+			result.put("booking", booking);
+		} else {
+			result.put("code", 500);
+			result.put("message", "예약된 내역이 없습니다.");
+		}
+		
+		// 리턴
+		return result;
 	}
 }

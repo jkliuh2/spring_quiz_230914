@@ -27,4 +27,50 @@
  	WHERE
  		`id` = #{id}
  	</delete>
+ 	
+ 	<!-- insert -->
+ 	<insert id="insertBooking" parameterType="map">
+ 	INSERT INTO `booking`
+ 	(
+ 		`name`
+		,`headcount`
+		,`day`
+		,`date`
+		,`phoneNumber`
+		,`state`
+		,`createdAt`
+		,`updatedAt`
+ 	)
+ 	VALUES
+ 	(
+ 		#{name}
+ 		, #{headcount}
+ 		, #{day}
+ 		, #{date}
+ 		, #{phoneNumber}
+ 		, '대기중'
+ 		, NOW()
+ 		, NOW()
+ 	)
+ 	</insert>
+ 	
+ 	<!-- select (이름, 전화번호) -->
+ 	<select id="selectBookingListByNamePhoneNumber" parameterType="map" 
+ 	resultType="com.quiz.booking.domain.Booking">
+ 	SELECT
+ 		`id`
+		,`name`
+		,`headcount`
+		,`day`
+		,`date`
+		,`phoneNumber`
+		,`state`
+		,`createdAt`
+		,`updatedAt`
+	FROM
+		`booking`
+	WHERE
+		`name` = #{name}
+		and `phoneNumber` = #{phoneNumber}
+ 	</select>
  </mapper>

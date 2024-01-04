@@ -28,18 +28,19 @@
 		
 		// datepicker
 		$('#date').datepicker({
-			dateFormat:"yy-mm-dd"
+			minDate:0 // 오늘 이전은 선택 불가
+			, dateFormat:"yy-mm-dd"
 		});
 		
 		// 예약하기 버튼 이벤트
 		$('#bookingBtn').on('click', function() {
 			
 			// input 값들 가져오기
-			let name = $('#name').val();
-			let date = $('#date').val();
-			let day = $('#day').val();
-			let headcount = $('#headcount').val();
-			let phoneNumber = $('#phoneNumber').val();
+			let name = $('#name').val().trim();
+			let date = $('#date').val(); // datepicker 사용해서 trim() 안해도 됨.
+			let day = $('#day').val().trim();
+			let headcount = $('#headcount').val().trim();
+			let phoneNumber = $('#phoneNumber').val().trim();
 			
 			// 유효성검사
 			// 이름 공란 검사
@@ -78,7 +79,8 @@
 			} */
 			
 			// 입력하지 않은 예약상태(state)는 대기중. 으로 한다.
-			let state = "대기중";
+			// let state = "대기중";
+			// 쿼리문에서 정한다.
 			
 			// AJAX 통신 - INSERT
 			$.ajax({
@@ -91,15 +93,15 @@
 					, "day":day
 					, "headcount":headcount
 					, "phoneNumber":phoneNumber
-					, "state":state}
+					}
 				
 				// response
 				, success:function(data) {
 					// 성공:200, 실패:500
-					if (data.code == 200) {
+					if (data.code == 200) { // 성공
 						alert(data.result + ": 예약에 성공했습니다.");
 						location.reload(); // 새로고침
-					} else if (data.code == 500) {
+					} else if (data.code == 500) { // 실패
 						alert(data.error_message);
 					}
 				}
