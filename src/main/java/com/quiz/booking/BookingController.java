@@ -123,15 +123,16 @@ public class BookingController {
 		
 		// DB select -> 가장 가까운(date가 가장 이전) 하나만 BO에서 보낸다 
 		Booking booking = bookingBO.getNearestBookingByNamePhoneNumber(name, phoneNumber);
+		// BO에서 데이터 가공을 전부 해서 딱 한건만 Controller에 들어왔다.
 		
 		// Map 만들기
 		Map<String, Object> result = new HashMap<>();
-		if (booking != null) {
-			result.put("code", 200);
-			result.put("booking", booking);
-		} else {
+		if (booking == null) { // 예약 내역이 없을 때.
 			result.put("code", 500);
-			result.put("message", "예약된 내역이 없습니다.");
+			result.put("message", "예약된 내역이 존재하지 않습니다.");
+		} else { // 예약 내역 존재 -> 성공
+			result.put("code", 200);
+			result.put("booking", booking); // Booking 객체를 통째로 value로 집어넣는다.
 		}
 		
 		// 리턴

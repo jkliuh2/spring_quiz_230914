@@ -38,14 +38,22 @@ public class BookingBO {
 	// input: name, phoneNumber / output: Booking(여러개가 들어오면 date가 가장 가까운(더 이전 날짜) 하나만 보내도록 가공)
 	public Booking getNearestBookingByNamePhoneNumber(String name, String phoneNumber) {
 		List<Booking> bookingList = bookingMapper.selectBookingListByNamePhoneNumber(name, phoneNumber);
-		Booking nearestBooking = bookingList.get(0);
-		for (int i = 1; i < bookingList.size(); i++) {
-			if (nearestBooking.getDate().after(bookingList.get(i).getDate())) {
-				// A.before(B) -> A가 B보다 이전이면 true
-				// A.after(B) -> A가 B보다 이후이면 true
-				nearestBooking = bookingList.get(i);
-			}
-		}
-		return nearestBooking;
+//		Booking nearestBooking = bookingList.get(0);
+//		for (int i = 1; i < bookingList.size(); i++) {
+//			if (nearestBooking.getDate().after(bookingList.get(i).getDate())) {
+//				// A.before(B) -> A가 B보다 이전이면 true
+//				// A.after(B) -> A가 B보다 이후이면 true
+//				nearestBooking = bookingList.get(i);
+//			}
+//		}
+		
+		// 없는 경우[] -> null 리턴
+		
+		// 있는 경우[1, 2, 3] -> 가장 마지막 index로 보내주면 된다.(날짜상, 저렇게 나온다는듯?)
+		// size()-1 인덱스로 보내주면 된다.
+		
+		// 두 조건을 하나로 합친다.
+		return bookingList.isEmpty() ? null : bookingList.get(bookingList.size() - 1);
+		// List가 비어있는가? null : 마지막 booking;
 	}
 }
