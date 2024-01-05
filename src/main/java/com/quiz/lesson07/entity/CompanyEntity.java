@@ -37,6 +37,7 @@ public class CompanyEntity {
 	@Column(name = "createdAt", updatable = false)
 	private Date createdAt;
 	
+	@UpdateTimestamp
 	@Column(name = "updatedAt")
 	private Date updatedAt;
 }
