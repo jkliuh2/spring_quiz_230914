@@ -3,12 +3,12 @@ package com.quiz.lesson03.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import com.quiz.lesson03.domain.RealEstate;
 
-@Repository
+@Mapper
 public interface RealEstateMapper {
 	
 	// 1-1.

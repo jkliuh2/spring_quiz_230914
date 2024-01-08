@@ -2,11 +2,11 @@ package com.quiz.weather_history.mapper;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.quiz.weather_history.domain.WeatherHistory;
 
-@Repository
+@Mapper
 public interface WeatherMapper {
 	
 	// 전체 날씨 select

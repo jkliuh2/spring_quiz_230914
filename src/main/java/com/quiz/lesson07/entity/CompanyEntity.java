@@ -1,6 +1,6 @@
 package com.quiz.lesson07.entity;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,10 +19,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true) // 필드 변경 허용.
 @Getter
-@Table(name = "company")
-@Entity
+@Table(name = "company") // 테이블 설정(없으면 Entity 들어간줄 안다)
+@Entity // Entity 등록 어노테이션
 public class CompanyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +35,9 @@ public class CompanyEntity {
 	
 	@UpdateTimestamp
 	@Column(name = "createdAt", updatable = false)
-	private Date createdAt;
+	private ZonedDateTime createdAt;
 	
 	@UpdateTimestamp
 	@Column(name = "updatedAt")
-	private Date updatedAt;
+	private ZonedDateTime updatedAt;
 }

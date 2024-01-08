@@ -1,10 +1,10 @@
 package com.quiz.lesson04.mapper;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.quiz.lesson04.domain.Realtor;
 
-@Repository
+@Mapper
 public interface RealtorMapper {
 
 	// insert
