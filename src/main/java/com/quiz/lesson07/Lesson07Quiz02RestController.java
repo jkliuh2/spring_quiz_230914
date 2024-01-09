@@ -1,5 +1,6 @@
 package com.quiz.lesson07;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class Lesson07Quiz02RestController {
 	@GetMapping("/1")
 	public RecruitEntity select1() {
 		return recruitRepository.findById(8).orElse(null);
+		// null 대신 비어있는 엔티티로 리턴하려면 new 엔티티() 해주면 된다.
 	}
 	
 	// 2-2. Parameter 조건 조회
@@ -65,5 +67,13 @@ public class Lesson07Quiz02RestController {
 	public List<RecruitEntity> select6() {
 		return recruitRepository.findByRegionAndSalaryBetween(
 				"성남시 분당구", 7000, 8000);
+	}
+	
+	// 2-7. Native Query
+	// 마감일이 2026-04-10 이후이고 연봉이 8100 이상인 정규직 공고를 연봉 내림차순
+	@GetMapping("/7")
+	public List<RecruitEntity> select7() {
+//		return recruitRepository.findByDeadlineAfterAndSalaryGreaterThanEqaulAndTypeOrderBySalaryDesc("2026-04-10", 8100, "정규직");
+		return recruitRepository.findNativeQuery("2026-04-10", 8100, "정규직");
 	}
 }
